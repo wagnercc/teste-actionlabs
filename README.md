@@ -1,3 +1,3 @@
-# Projeto para o Teste de front-end para ActionLabs
+# Projeto ActionLabs
 
 ## Desenvolvido por Wagner Camargo Castilho
