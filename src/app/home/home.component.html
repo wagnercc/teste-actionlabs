@@ -1,0 +1,76 @@
+<div class="header-home">
+  <div class="col-md-12 text-center">
+    <h5 style="color: white">WEATHER IN YOUR CITY</h5>
+    <form class="input-group center-content-input-group" novalidate #formCitySearch="ngForm"
+      (ngSubmit)="searchCity(formCitySearch)">
+      <input name="cityInput" ngModel type="text" class="search-input" placeholder="Your City Name">
+      <button type="submit" class="btn btn-outline-secondary"><img src="../../assets/images/search-icon.svg"
+          width="20px"></button>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="listCitysWeather != undefined">
+        <div *ngFor="let city of listCitysWeather" style="display: flex; justify-content: center">
+          <div class="col-md-6 card-weather" (click)="updateModalObj(city)" data-toggle="modal"
+            data-target=".modal-weather-forecast">
+            <div class="row">
+              <div class="col-md-3 temp-city-card">
+                <h3>{{ city.main.temp }}°C</h3>
+              </div>
+              <div class="col-md-6 text-center">
+                <h4 class="font-bold">{{ city.name }}
+                  <img src="http://openweathermap.org/images/flags/{{city.sys.country.toLowerCase()}}.png">
+                </h4>
+                <p class="temp-min-max-card">Máx. {{ city.main.temp_max }}°C</p>
+                <p class="temp-min-max-card">Min. {{ city.main.temp_min }}°C</p>
+              </div>
+              <div class="col-md-3">
+                <img src="https://openweathermap.org/img/w/{{ city.weather[0].icon }}.png">
+                <h6>{{ city.weather[0].description }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-weather-forecast" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">5 day weather Forecast in {{ listWeatherForecast?.city.name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="weather-row" *ngFor="let forecastWeather of listWeatherForecast?.list">
+              <div class="col-md-6">
+                <h5>{{ forecastWeather.dt_txt }}</h5>
+              </div>
+              <div class="col-md-3">
+                <img src="https://openweathermap.org/img/w/{{ forecastWeather.weather[0].icon }}.png">
+                <h6>{{ forecastWeather.weather[0].description }}</h6>
+              </div>
+              <div class="col-md-3">
+                <h6 style="color: #b30000; font-weight: bold;">{{ forecastWeather.main.temp_max }}°C</h6>
+                <h6 style="color: #4a90e2; font-weight: bold;">{{ forecastWeather.main.temp_min }}°C</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
